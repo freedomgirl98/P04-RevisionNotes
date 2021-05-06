@@ -36,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    DBHelper db = new DBHelper(MainActivity.this);
+                if(String.valueOf(editNote.getText()).trim().isEmpty()){
+                    Toast.makeText(MainActivity.this,"Please enter something",Toast.LENGTH_LONG).show();
+                }
+                else{
                     RadioGroup radioGroupStars = findViewById(R.id.radioGroupStars);
                     int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
                     RadioButton radioButtonStars = findViewById(selectedButtonId);
@@ -46,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                     String num = String.valueOf(radioButtonStars.getText());
                     int number = Integer.valueOf(num);
-                    DBHelper db = new DBHelper(MainActivity.this);
-                    db.insertNote(addedText, number);
+                    db.insertNote(addedText,number);
+                }
                     db.close();
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editNote.getWindowToken(), 0);

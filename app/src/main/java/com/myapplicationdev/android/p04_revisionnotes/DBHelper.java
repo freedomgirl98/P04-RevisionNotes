@@ -76,7 +76,6 @@ public class DBHelper extends SQLiteOpenHelper {
 				+ COLUMN_NOTECONTENT + ", "
 				+ COLUMN_STARS
 				+ " FROM " + TABLE_NOTE;
-
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 

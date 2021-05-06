@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class RevisionNotesArrayAdapter extends ArrayAdapter<Note> {
+public class   RevisionNotesArrayAdapter extends ArrayAdapter<Note> {
 	Context context;
 	ArrayList<Note> notes;
 	int resource;
