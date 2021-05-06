@@ -36,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean isDup = false;
                     DBHelper db = new DBHelper(MainActivity.this);
                 if(String.valueOf(editNote.getText()).trim().isEmpty()){
                     Toast.makeText(MainActivity.this,"Please enter something",Toast.LENGTH_SHORT).show();
                 }
+
                 else {
                     RadioGroup radioGroupStars = findViewById(R.id.radioGroupStars);
                     int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
@@ -53,14 +55,20 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         for (int i = 0; i < alNote.size(); i++) {
                             if (addedText.equals(alNote.get(i).getNoteContent())) {
-                                Toast.makeText(MainActivity.this, addedText + " is already inserted", Toast.LENGTH_SHORT).show();
+                                isDup= true;
                                 break;
                             } else {
-                                db.insertNote(addedText, number);
-                                db.close();
-                                break;
+                               isDup = false;
                             }
                         }
+                       if (isDup == true){
+                           Toast.makeText(MainActivity.this, addedText + " is already inserted", Toast.LENGTH_SHORT).show();
+                       }
+                       else{
+                           db.insertNote(addedText, number);
+                       }
+
+
                     }
                 }
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
