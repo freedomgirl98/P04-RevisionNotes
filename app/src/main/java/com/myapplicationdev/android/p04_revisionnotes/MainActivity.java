@@ -21,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        editNote = findViewById(R.id.editTextNote);
-        radioGroupStars = (RadioGroup) findViewById(R.id.radioGroupStars);
+        editNote = findViewById(R.id.editTextNote);;
         btnInsert = findViewById(R.id.buttonInsertNote);
         btnShow = findViewById(R.id.buttonShowList);
 
@@ -30,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RadioGroup rg = findViewById(R.id.radioGroupStars);
-                int selectedButtonId = rg.getCheckedRadioButtonId();
+                RadioGroup radioGroupStars = findViewById(R.id.radioGroupStars);
+                int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
+                RadioButton radioButtonStars = findViewById(selectedButtonId);
+                String addedText = String.valueOf(editNote.getText());
+                String num = String.valueOf(radioButtonStars.getText());
+                int number = Integer.valueOf(num);
                 DBHelper db = new DBHelper(MainActivity.this);
-                db.insertNote(""+editNote, selectedButtonId);
+                db.insertNote(addedText,number);
                 db.close();
-                Toast.makeText(MainActivity.this,"Inserted",Toast.LENGTH_LONG).show();
             }
         });
         btnShow.setOnClickListener(new View.OnClickListener() {
