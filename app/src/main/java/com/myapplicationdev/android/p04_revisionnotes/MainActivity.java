@@ -45,29 +45,28 @@ public class MainActivity extends AppCompatActivity {
                     int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
                     RadioButton radioButtonStars = findViewById(selectedButtonId);
                     String addedText = String.valueOf(editNote.getText());
+                    String num = String.valueOf(radioButtonStars.getText());
+                    int number = Integer.valueOf(num);
                     if (alNote.isEmpty()) {
-                        String num = String.valueOf(radioButtonStars.getText());
-                        int number = Integer.valueOf(num);
-                        db = new DBHelper(MainActivity.this);
                         db.insertNote(addedText, number);
+                        db.close();
                     } else {
                         for (int i = 0; i < alNote.size(); i++) {
-                            String noteContent = String.valueOf(alNote.get(i).getNoteContent());
-                            if (addedText.equals(noteContent)) {
-                                Toast.makeText(MainActivity.this, addedText + "is already inserted", Toast.LENGTH_SHORT).show();
+                            if (addedText.equals(alNote.get(i).getNoteContent())) {
+                                Toast.makeText(MainActivity.this, addedText + " is already inserted", Toast.LENGTH_SHORT).show();
+                                break;
                             } else {
-                                String num = String.valueOf(radioButtonStars.getText());
-                                int number = Integer.valueOf(num);
-                                db = new DBHelper(MainActivity.this);
                                 db.insertNote(addedText, number);
-
+                                db.close();
+                                break;
                             }
                         }
                     }
                 }
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editNote.getWindowToken(), 0);
-                db.close();
+
+
 
             }
         });
