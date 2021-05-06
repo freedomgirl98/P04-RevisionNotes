@@ -45,10 +45,6 @@ public class MainActivity extends AppCompatActivity {
                     int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
                     RadioButton radioButtonStars = findViewById(selectedButtonId);
                     String addedText = String.valueOf(editNote.getText());
-                    String noteContent = String.valueOf(dbNote.getNoteContent());
-                    if (addedText == noteContent){
-                        
-                    }
                     String num = String.valueOf(radioButtonStars.getText());
                     int number = Integer.valueOf(num);
                     db.insertNote(addedText,number);
