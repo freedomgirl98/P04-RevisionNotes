@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 	//TODO Define the Database properties
+	private Context context;
 	private static final String DATABASE_NAME = "notes.db";
 	private static final int DATABASE_VERSION = 1;
 	private static final String TABLE_NOTE = "note";
@@ -24,6 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 	public DBHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	@Override
@@ -55,7 +58,13 @@ public class DBHelper extends SQLiteOpenHelper {
 		// Store the column name as key and the date as value
 		values.put(COLUMN_STARS, stars);
 		// Insert the row into the TABLE_TASK
-		db.insert(TABLE_NOTE, null, values);
+		long result = db.insert(TABLE_NOTE, null, values);
+		if (result != -1){
+			Toast.makeText(context,"Inserted",Toast.LENGTH_LONG).show();
+		}
+		else {
+			Toast.makeText(context,"Fail rInserted",Toast.LENGTH_LONG).show();
+		}
 		// Close the database connection
 		db.close();
 	}
