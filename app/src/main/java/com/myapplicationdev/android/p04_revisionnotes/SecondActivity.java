@@ -3,6 +3,7 @@ package com.myapplicationdev.android.p04_revisionnotes;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,11 +25,12 @@ public class SecondActivity extends AppCompatActivity {
 		setContentView(R.layout.activity_second);
 		lvNotes = findViewById(R.id.lv);
 		DBHelper dbNote = new DBHelper(SecondActivity.this);
+			//add database values into arraylist
 
-		//add database values into arraylist
-		alNote = dbNote.getAllNotes();
-		rnaa = new RevisionNotesArrayAdapter(this, R.layout.row,alNote);
-		lvNotes.setAdapter(rnaa);
+			alNote = dbNote.getAllNotes();
+			rnaa = new RevisionNotesArrayAdapter(this, R.layout.row, alNote);
+			Toast.makeText(SecondActivity.this, "" + alNote.get(0).getNoteContent(), Toast.LENGTH_LONG).show();
+			lvNotes.setAdapter(rnaa);
 
 	}
 

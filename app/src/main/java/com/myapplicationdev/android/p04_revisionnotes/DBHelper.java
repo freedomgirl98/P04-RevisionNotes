@@ -63,7 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			Toast.makeText(context,"Inserted",Toast.LENGTH_LONG).show();
 		}
 		else {
-			Toast.makeText(context,"Fail rInserted",Toast.LENGTH_LONG).show();
+			Toast.makeText(context,"Fail Inserted",Toast.LENGTH_LONG).show();
 		}
 		// Close the database connection
 		db.close();
