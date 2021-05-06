@@ -38,20 +38,36 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                     DBHelper db = new DBHelper(MainActivity.this);
                 if(String.valueOf(editNote.getText()).trim().isEmpty()){
-                    Toast.makeText(MainActivity.this,"Please enter something",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this,"Please enter something",Toast.LENGTH_SHORT).show();
                 }
-                else{
+                else {
                     RadioGroup radioGroupStars = findViewById(R.id.radioGroupStars);
                     int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
                     RadioButton radioButtonStars = findViewById(selectedButtonId);
                     String addedText = String.valueOf(editNote.getText());
-                    String num = String.valueOf(radioButtonStars.getText());
-                    int number = Integer.valueOf(num);
-                    db.insertNote(addedText,number);
+                    if (alNote.isEmpty()) {
+                        String num = String.valueOf(radioButtonStars.getText());
+                        int number = Integer.valueOf(num);
+                        db = new DBHelper(MainActivity.this);
+                        db.insertNote(addedText, number);
+                    } else {
+                        for (int i = 0; i < alNote.size(); i++) {
+                            String noteContent = String.valueOf(alNote.get(i).getNoteContent());
+                            if (addedText.equals(noteContent)) {
+                                Toast.makeText(MainActivity.this, addedText + "is already inserted", Toast.LENGTH_SHORT).show();
+                            } else {
+                                String num = String.valueOf(radioButtonStars.getText());
+                                int number = Integer.valueOf(num);
+                                db = new DBHelper(MainActivity.this);
+                                db.insertNote(addedText, number);
+
+                            }
+                        }
+                    }
                 }
-                    db.close();
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(editNote.getWindowToken(), 0);
+                db.close();
 
             }
         });
