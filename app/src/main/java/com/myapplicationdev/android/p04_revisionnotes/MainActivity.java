@@ -13,11 +13,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     EditText editNote;
     RadioButton radioButtonStars;
     RadioGroup radioGroupStars;
     Button btnInsert, btnShow;
+    ArrayList<Note> alNote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         editNote = findViewById(R.id.editTextNote);;
         btnInsert = findViewById(R.id.buttonInsertNote);
         btnShow = findViewById(R.id.buttonShowList);
+        final DBHelper dbNote = new DBHelper(MainActivity.this);
+        alNote = dbNote.getAllNotes();
 
 
         btnInsert.setOnClickListener(new View.OnClickListener() {
@@ -35,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
                     int selectedButtonId = radioGroupStars.getCheckedRadioButtonId();
                     RadioButton radioButtonStars = findViewById(selectedButtonId);
                     String addedText = String.valueOf(editNote.getText());
+                    String noteContent = String.valueOf(dbNote.getNoteContent());
+                    if (addedText == noteContent){
+                        
+                    }
                     String num = String.valueOf(radioButtonStars.getText());
                     int number = Integer.valueOf(num);
                     DBHelper db = new DBHelper(MainActivity.this);
